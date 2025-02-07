@@ -1,22 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const HomePage = () => {
+  const navigation = useNavigation();
+
   const renderCard = ({ item }) => (
-    <View style={[styles.card, { backgroundColor: item.color }]}>
-      <View style={styles.cardHeader}>
-        {item.flag && <Image source={item.flag} style={styles.flag} />}
-        <Text style={styles.cardTitle}>{item.title}</Text>
+    <TouchableOpacity onPress={() => navigation.navigate(item.screen)}>
+      <View style={[styles.card, { backgroundColor: item.color }]}>
+        <View style={styles.cardHeader}>
+          {item.flag && <Image source={item.flag} style={styles.flag} />}
+          <Text style={styles.cardTitle}>{item.title}</Text>
+        </View>
+        <Text style={styles.cardDescription}>{item.description}</Text>
       </View>
-      <Text style={styles.cardDescription}>{item.description}</Text>
-    </View>
+    </TouchableOpacity>
   );
 
   const recommendedData = [
-    { title: 'Spanish Basics', description: 'Learn the basics of Spanish.', color: '#daf6f2', flag: require('./assets/flags/spain.png') },
-    { title: 'French for Beginners', description: 'Start your journey with French.', color: '#fae3d7', flag: require('./assets/flags/france.png') },
-    { title: 'German Essentials', description: 'Essential German phrases and words.', color: '#dccaa8', flag: require('./assets/flags/germany.png') },
+    { title: 'Spanish Basics', description: 'Learn the basics of Spanish.', color: '#daf6f2', flag: require('./assets/flags/spain.png'), screen: 'SpanishBasics' },
+    { title: 'French for Beginners', description: 'Start your journey with French.', color: '#fae3d7', flag: require('./assets/flags/france.png'), screen: 'FrenchForBeginners' },
+    { title: 'German Essentials', description: 'Essential German phrases and words.', color: '#dccaa8', flag: require('./assets/flags/germany.png'), screen: 'GermanEssentials' },
   ];
 
   const coursesData = [
